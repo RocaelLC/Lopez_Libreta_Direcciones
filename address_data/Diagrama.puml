@@ -1,0 +1,63 @@
+@startuml
+
+class AddressEntry {
+  - Nombre: String
+  - Apellido: String
+  - Calle: String
+  - Ciudad: String
+  - Estado: String
+  - CodigoPostal: String
+  - Email: String
+  - Telefono: String
+  --
+  + AddressEntry(Nombre: String, Apellido: String, Calle: String, Ciudad: String, Estado: String, CodigoPostal: String, Email: String, Telefono: String)
+  + getNombre(): String
+  + getApellido(): String
+  + getCalle(): String
+  + getCiudad(): String
+  + getEstado(): String
+  + getCodigoPostal(): String
+  + getEmail(): String
+  + getTelefono(): String
+  + toString(): String
+}
+
+class AddressBook {
+  - entries: List<AddressEntry>
+  - filePath: String
+  --
+  + AddressBook(filePath: String)
+  + addEntry(entry: AddressEntry): void
+  + removeEntry(entry: AddressEntry): void
+  + searchEntriesByApellido(apellido: String): List<AddressEntry>
+  + getAllEntries(): List<AddressEntry>
+}
+
+class AddressBookApplication {
+  - addressBook: AddressBook
+  - scanner: Scanner
+  --
+  + AddressBookApplication()
+  + run(): void
+  + addEntry(): void
+  + removeEntry(): void
+  + searchEntries(): void
+  + displayEntries(): void
+  + main(args: String[]): void
+}
+
+class Menu {
+  - scanner: Scanner
+  --
+  + Menu()
+  + displayMenu(): void
+  + getUserChoice(): String
+}
+
+AddressEntry "1" -- "1..*" AddressBook
+AddressBook "1" *-- "1" AddressBookApplication
+AddressBookApplication "1" -- "1" Menu
+
+note right of AddressEntry: Creado por Rocael Lopez Cruz
+
+@enduml
